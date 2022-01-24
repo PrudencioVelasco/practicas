@@ -1,0 +1,48 @@
+
+CREATE TABLE miembros (
+  idmiembro int(11) NOT NULL AUTO_INCREMENT,
+  miembro varchar(50) NOT NULL,
+  edad tinyint(4) NOT NULL,
+  PRIMARY KEY (idmiembro)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+
+INSERT INTO miembros (idmiembro, miembro, edad) VALUES
+(1, 'Papá', 42),
+(2, 'Mamá', 45),
+(3, 'Hija', 19),
+(4, 'Hijo', 16),
+(5, 'Perro', 2);
+
+
+CREATE TABLE comidamiembros (
+  idcomidamiembro int(30) NOT NULL AUTO_INCREMENT,
+  comida varchar(30) NOT NULL,
+  miembro int(11) NOT NULL,
+  PRIMARY KEY (idcomidamiembro),
+  KEY miembro (miembro),
+  CONSTRAINT comida_miembro FOREIGN KEY (miembro) REFERENCES miembros (idmiembro)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+
+INSERT INTO comidamiembros (idcomidamiembro, comida, miembro) VALUES
+(1, 'Sopa', 4),
+(2, 'Enchiladas', 1),
+(3, 'Ensalada', 2);
+
+1.2).- Obtener todos los miembros de la familia que tengan una comida asignada (usa cualquier tipo de JOIN).
+	select
+		m.miembro,
+		cm.comida
+	from
+		miembros m
+	inner join comidamiembros cm on
+		m.idmiembro = cm.miembro;
+	
+1.3).- Obtener todos los miembros de la familia con su respectiva comida asignada; incluir los miembros que no tienen comida asignada (usa cualquier tipo de JOIN).
+	select
+		m.miembro,
+		cm.comida
+	from
+		miembros m
+	left join comidamiembros cm on
+		m.idmiembro = cm.miembro;
